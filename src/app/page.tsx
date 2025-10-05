@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import CompetitionCard from "../components/CompetitionCard";
 import competitionsData from "../../public/competitions.json";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 // ✅ Dynamically import MapView client-side only
 const MapView = dynamic(() => import("../components/MapView"), {
@@ -62,17 +63,17 @@ export default function HomePage() {
   const today = new Date();
 
   // ✅ Local storage lists
-const [appliedList, setAppliedList] = useState<number[]>([]);
-const [toApplyList, setToApplyList] = useState<number[]>([]);
+  const [appliedList, setAppliedList] = useState<number[]>([]);
+  const [toApplyList, setToApplyList] = useState<number[]>([]);
 
-useEffect(() => {
-  if (typeof window !== "undefined") {
-    const applied = JSON.parse(localStorage.getItem("appliedList") || "[]");
-    const toApply = JSON.parse(localStorage.getItem("toApplyList") || "[]");
-    setAppliedList(applied);
-    setToApplyList(toApply);
-  }
-}, []);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const applied = JSON.parse(localStorage.getItem("appliedList") || "[]");
+      const toApply = JSON.parse(localStorage.getItem("toApplyList") || "[]");
+      setAppliedList(applied);
+      setToApplyList(toApply);
+    }
+  }, []);
   const [filter, setFilter] = useState("all");
 
   // ✅ Compute categories dynamically
@@ -163,7 +164,7 @@ useEffect(() => {
           <h2 className="text-2xl font-semibold mb-4">
             Upcoming Competitions — Deadline Passed
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 opacity-90">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filterByUser(upcomingClosed).length > 0 ? (
               filterByUser(upcomingClosed).map((comp) => (
                 <CompetitionCard key={comp.id} comp={comp} />
@@ -179,7 +180,7 @@ useEffect(() => {
         {/* --- Section 3: Past Competitions --- */}
         <section className="mt-10">
           <h2 className="text-2xl font-semibold mb-4">Past Competitions</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 opacity-70">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filterByUser(past).length > 0 ? (
               filterByUser(past).map((comp) => (
                 <CompetitionCard key={comp.id} comp={comp} />
@@ -193,11 +194,12 @@ useEffect(() => {
         </section>
 
         {/* --- Section 4: Map --- */}
-        <section id="map" className="mt-12">
+        <section id="map" className="mt-12  relative -z-10">
           <h2 className="text-2xl font-semibold mb-4">Competition Map</h2>
           <MapView competitions={competitions} />
         </section>
       </div>
+      <Footer />
     </>
   );
 }
