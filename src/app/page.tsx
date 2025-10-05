@@ -121,7 +121,6 @@ export default function HomePage() {
               className="text-sm bg-gray-200 dark:bg-neutral-800 px-3 py-1 rounded-md hover:bg-gray-300 dark:hover:bg-neutral-700 focus:outline-none"
             >
               <option value="all">All</option>
-              <option value="High School">High School</option>
               <option value="College">College</option>
               <option value="Corporate">Corporate</option>
               <option value="Open">Open</option>
