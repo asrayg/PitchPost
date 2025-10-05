@@ -93,8 +93,15 @@ export default function Footer() {
 
         <div className="mt-6 text-sm text-gray-600 dark:text-gray-400">
           <p>
-            © 2025 PitchPost | Made by{" "}
-            <span className="font-medium">Asray Gopa</span>
+            © 2025 PitchPost | Made and Maintained by{" "}
+            <a
+              href="https://asraygopa.me"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-blue-600 dark:text-blue-400 hover:underline"
+            >
+              Asray Gopa
+            </a>
           </p>
           <p>
             Contact:{" "}

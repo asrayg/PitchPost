@@ -1,29 +1,45 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+
+declare global {
+  interface Window {
+    adsbygoogle?: unknown[];
+  }
+}
 
 export default function AdBanner() {
-  const adRef = useRef<HTMLModElement>(null); // ✅ correct type for <ins>
+  // ✅ Use HTMLElement (covers <ins>)
+  const adRef = useRef<HTMLElement>(null);
+  const [adLoaded, setAdLoaded] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      try {
-        if (typeof window !== "undefined" && adRef.current) {
-          // @ts-ignore - ignore adsbygoogle type warnings
-          (window.adsbygoogle = window.adsbygoogle || []).push({});
-        }
-      } catch (e) {
-        console.warn("AdSense error:", e);
-      }
-    }, 500); // wait for layout
+    if (typeof window === "undefined" || !adRef.current) return;
 
-    return () => clearTimeout(timer);
+    try {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+
+      const checkAdLoaded = setInterval(() => {
+        const iframe = adRef.current?.querySelector("iframe");
+        if (iframe && iframe.offsetHeight > 0 && iframe.offsetWidth > 0) {
+          setAdLoaded(true);
+          clearInterval(checkAdLoaded);
+        }
+      }, 1000);
+
+      return () => clearInterval(checkAdLoaded);
+    } catch (err) {
+      console.warn("Ad failed to load:", err);
+    }
   }, []);
+
+  // ❌ Hide ad until loaded
+  if (!adLoaded) return null;
 
   return (
     <div className="flex justify-center my-8">
       <ins
-        ref={adRef}
+        ref={adRef as React.RefObject<any>} // ✅ cast as any to silence ins ref type mismatch
         className="adsbygoogle"
         style={{
           display: "block",
