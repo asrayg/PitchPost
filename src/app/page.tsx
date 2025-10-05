@@ -62,8 +62,17 @@ export default function HomePage() {
   const today = new Date();
 
   // ✅ Local storage lists
-  const appliedList = JSON.parse(localStorage.getItem("appliedList") || "[]");
-  const toApplyList = JSON.parse(localStorage.getItem("toApplyList") || "[]");
+const [appliedList, setAppliedList] = useState<number[]>([]);
+const [toApplyList, setToApplyList] = useState<number[]>([]);
+
+useEffect(() => {
+  if (typeof window !== "undefined") {
+    const applied = JSON.parse(localStorage.getItem("appliedList") || "[]");
+    const toApply = JSON.parse(localStorage.getItem("toApplyList") || "[]");
+    setAppliedList(applied);
+    setToApplyList(toApply);
+  }
+}, []);
   const [filter, setFilter] = useState("all");
 
   // ✅ Compute categories dynamically
