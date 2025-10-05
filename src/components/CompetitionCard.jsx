@@ -73,6 +73,9 @@ export default function CompetitionCard({ comp }) {
           <p className="text-gray-700 dark:text-gray-300">
             📅 <span className="font-medium">Date:</span> {comp.date}
           </p>
+          <p className="text-gray-700 dark:text-gray-300">
+            🏷️ <span className="font-medium">Category:</span> {comp.category}
+          </p>
           <p className={deadlineColor}>⏰ {deadlineText}</p>
         </div>
 
