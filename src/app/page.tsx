@@ -13,17 +13,31 @@ const MapView = dynamic(() => import("../components/MapView"), {
 
 interface Competition {
   id: number;
-  name: string;
-  category: string;
-  region: string;
-  date: string;
-  deadline: string;
-  prize: string;
-  location: string;
-  coordinates?: [number, number];
-  link: string;
-  status: string;
+  name: string;                         // Name of Competition
+  category: "High School" | "College" | "Corporate" | "Open";
+  focus?: string;                       // Category/Focus (e.g. AgTech, FinTech)
+  region?: string;                      // Midwest, National, etc.
+  date: string;                         // Main event date
+  deadline: string;                     // Application deadline
+  prize: string;                        // Total Prize Money
+  prizeDetails?: string[];              // Prize Money - more specific (multiple choice)
+  location: string;                     // City, State, or "Virtual"
+  mode: "In Person" | "Virtual" | "Hybrid"; // In-person/Virtual/Hybrid
+  criteria?: string;                    // Criteria to enter competition
+  timings?: string;                     // Dates and timings of competition
+  link: string;                         // Application link
+  coordinates?: [number, number];       // For map display
+  status: "upcoming" | "past";          // For filtering
+
+  // Organizer Info
+  organizer: {
+    name: string;
+    phone?: string;
+    email?: string;
+    institution?: string;
+  };
 }
+
 
 export default function HomePage() {
   const [competitions, setCompetitions] = useState<Competition[]>([]);
