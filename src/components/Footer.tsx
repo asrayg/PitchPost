@@ -1,6 +1,6 @@
 "use client";
 import confetti from "canvas-confetti";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
 
 export default function Footer() {
@@ -9,7 +9,6 @@ export default function Footer() {
     "idle" | "loading" | "success" | "error"
   >("idle");
 
-  // ✅ Email regex validation
   const isValidEmail = (email: string) =>
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
@@ -21,7 +20,6 @@ export default function Footer() {
     }
 
     setStatus("loading");
-
     const { error } = await supabase
       .from("email_subscribers")
       .insert([{ email }]);
@@ -33,7 +31,6 @@ export default function Footer() {
       setStatus("success");
       setEmail("");
 
-      // 🎉 Confetti pop on success
       confetti({
         particleCount: 120,
         spread: 80,
@@ -80,8 +77,8 @@ export default function Footer() {
             {status === "loading"
               ? "Subscribing..."
               : status === "success"
-              ? "✅ Subscribed!"
-              : "Subscribe"}
+                ? "✅ Subscribed!"
+                : "Subscribe"}
           </button>
         </form>
 
@@ -91,7 +88,7 @@ export default function Footer() {
           </p>
         )}
 
-        <div className="mt-6 text-sm text-gray-600 dark:text-gray-400">
+        <div className="mt-6 text-sm text-gray-600 dark:text-gray-400 space-y-2">
           <p>
             © 2025 PitchPost | Made and Maintained by{" "}
             <a
@@ -113,6 +110,15 @@ export default function Footer() {
             </a>
           </p>
         </div>
+
+        {/* ✅ Buy Me a Coffee Button */}
+        <div
+          className="flex justify-center mt-8"
+          dangerouslySetInnerHTML={{
+            __html:
+              '<a href="https://www.buymeacoffee.com/asraygopa4" target="_blank" rel="noopener noreferrer"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;border-radius: 8px;transition: transform 0.2s ease;" /></a>',
+          }}
+        />
       </div>
     </footer>
   );
