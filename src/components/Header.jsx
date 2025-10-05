@@ -43,7 +43,7 @@ export default function Header() {
             Map
           </Link>
           <a
-            href="https://forms.gle/your-form-link"
+            href="https://forms.gle/Ujare6w8eHNj7K8GA"
             target="_blank"
             rel="noopener noreferrer"
             className="ml-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
@@ -86,10 +86,11 @@ export default function Header() {
             Map
           </Link>
           <a
-            href="https://forms.gle/your-form-link"
+            href="https://forms.gle/Ujare6w8eHNj7K8GA"
             target="_blank"
             rel="noopener noreferrer"
-            className="block text-center w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            onClick={(e) => e.stopPropagation()}
+            className="ml-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
           >
             Submit
           </a>
