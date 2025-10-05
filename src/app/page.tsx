@@ -8,30 +8,25 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import AdBanner from "../components/AdBanner";
 
-// ✅ Dynamically import MapView client-side only
-const MapView = dynamic(() => import("../components/MapView"), {
-  ssr: false,
-});
+const MapView = dynamic(() => import("../components/MapView"), { ssr: false });
 
 interface Competition {
   id: number;
-  name: string; // Name of Competition
+  name: string;
   category: "High School" | "College" | "Corporate" | "Open";
-  focus?: string; // Category/Focus (e.g. AgTech, FinTech)
-  region?: string; // Midwest, National, etc.
-  date: string; // Main event date
-  deadline: string; // Application deadline
-  prize: string; // Total Prize Money
-  prizeDetails?: string[]; // Prize Money - more specific (multiple choice)
-  location: string; // City, State, or "Virtual"
-  mode: "In Person" | "Virtual" | "Hybrid"; // In-person/Virtual/Hybrid
-  criteria?: string; // Criteria to enter competition
-  timings?: string; // Dates and timings of competition
-  link: string; // Application link
-  coordinates?: [number, number]; // For map display
-  status: "upcoming" | "past"; // For filtering
-
-  // Organizer Info
+  focus?: string;
+  region?: string;
+  date: string;
+  deadline: string;
+  prize: string;
+  prizeDetails?: string[];
+  location: string;
+  mode: "In Person" | "Virtual" | "Hybrid";
+  criteria?: string;
+  timings?: string;
+  link: string;
+  coordinates?: [number, number];
+  status: "upcoming" | "past";
   organizer: {
     name: string;
     phone?: string;
@@ -39,15 +34,13 @@ interface Competition {
     institution?: string;
   };
 }
+
 const parseDate = (dateStr: string) => {
-  // Handles both 2025-11-12 and 10/24/2025 formats
   if (!dateStr) return new Date("1970-01-01");
   const parts = dateStr.includes("/") ? dateStr.split("/") : dateStr.split("-");
   if (parts.length === 3) {
-    // U.S. format MM/DD/YYYY
     if (dateStr.includes("/"))
       return new Date(+parts[2], +parts[0] - 1, +parts[1]);
-    // ISO YYYY-MM-DD
     return new Date(+parts[0], +parts[1] - 1, +parts[2]);
   }
   return new Date(dateStr);
@@ -56,27 +49,21 @@ const parseDate = (dateStr: string) => {
 export default function HomePage() {
   const [competitions, setCompetitions] = useState<Competition[]>([]);
   const [showMyComps, setShowMyComps] = useState(false);
+  const [filter, setFilter] = useState("all");
+  const [dateFilter, setDateFilter] = useState("all");
 
-  useEffect(() => {
-    setCompetitions(competitionsData as Competition[]);
-  }, []);
-
-  const today = new Date();
-
-  // ✅ Local storage lists
   const [appliedList, setAppliedList] = useState<number[]>([]);
   const [toApplyList, setToApplyList] = useState<number[]>([]);
 
   useEffect(() => {
+    setCompetitions(competitionsData as Competition[]);
     if (typeof window !== "undefined") {
-      const applied = JSON.parse(localStorage.getItem("appliedList") || "[]");
-      const toApply = JSON.parse(localStorage.getItem("toApplyList") || "[]");
-      setAppliedList(applied);
-      setToApplyList(toApply);
+      setAppliedList(JSON.parse(localStorage.getItem("appliedList") || "[]"));
+      setToApplyList(JSON.parse(localStorage.getItem("toApplyList") || "[]"));
     }
   }, []);
-  const [filter, setFilter] = useState("all");
-  const [dateFilter, setDateFilter] = useState("all");
+
+  const today = new Date();
 
   const filterByDate = (dateStr: string) => {
     const date = parseDate(dateStr);
@@ -96,7 +83,6 @@ export default function HomePage() {
     }
   };
 
-  // ✅ Compute categories dynamically
   const upcomingActive = competitions.filter((c) => {
     const dateOk = parseDate(c.deadline) >= today && parseDate(c.date) >= today;
     const matchesFilter =
@@ -104,7 +90,7 @@ export default function HomePage() {
         c.category === filter ||
         c.mode === filter ||
         c.region === filter) &&
-      filterByDate(c.date); // ✅ this now applies to all filters
+      filterByDate(c.date);
     return dateOk && matchesFilter;
   });
 
@@ -115,13 +101,12 @@ export default function HomePage() {
         c.category === filter ||
         c.mode === filter ||
         c.region === filter) &&
-      filterByDate(c.date); // ✅ same fix here
+      filterByDate(c.date);
     return dateOk && matchesFilter;
   });
 
   const past = competitions.filter((c) => parseDate(c.date) < today);
 
-  // ✅ Filter by "My Competitions" toggle
   const filterByUser = (list: Competition[]) =>
     showMyComps
       ? list.filter(
@@ -132,25 +117,25 @@ export default function HomePage() {
   return (
     <>
       <Header />
-      <div className="max-w-5xl mx-auto px-4 py-8">
-        {/* --- Toggle Button --- */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3">
-          <h1 className="text-3xl font-semibold">Pitch Competitions</h1>
+      <main className="max-w-6xl mx-auto px-4 py-10 space-y-16">
+        {/* 🔹 Header + Filters */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <h1 className="text-4xl font-bold tracking-tight">
+            Pitch Competitions
+          </h1>
 
-          <div className="flex flex-wrap items-center gap-3">
-            {/* --- Show My Competitions toggle --- */}
+          <div className="flex flex-wrap gap-3 items-center">
             <button
               onClick={() => setShowMyComps(!showMyComps)}
-              className="text-sm bg-gray-200 dark:bg-neutral-800 px-3 py-1 rounded-md hover:bg-gray-300 dark:hover:bg-neutral-700"
+              className="text-sm bg-gradient-to-r from-blue-600 to-blue-400 text-white px-4 py-1.5 rounded-lg shadow hover:opacity-90 transition"
             >
               {showMyComps ? "Show All" : "Show My Competitions"}
             </button>
 
-            {/* --- Category / Mode Filter --- */}
             <select
               onChange={(e) => setFilter(e.target.value)}
               value={filter}
-              className="text-sm bg-gray-200 dark:bg-neutral-800 px-3 py-1 rounded-md hover:bg-gray-300 dark:hover:bg-neutral-700 focus:outline-none"
+              className="text-sm bg-gray-100 dark:bg-neutral-800 px-3 py-2 rounded-lg focus:outline-none hover:bg-gray-200 dark:hover:bg-neutral-700"
             >
               <option value="all">All</option>
               <option value="College">College</option>
@@ -161,11 +146,10 @@ export default function HomePage() {
               <option value="Hybrid">Hybrid</option>
             </select>
 
-            {/* --- Date Filter --- */}
             <select
               onChange={(e) => setDateFilter(e.target.value)}
               value={dateFilter}
-              className="text-sm bg-gray-200 dark:bg-neutral-800 px-3 py-1 rounded-md hover:bg-gray-300 dark:hover:bg-neutral-700 focus:outline-none"
+              className="text-sm bg-gray-100 dark:bg-neutral-800 px-3 py-2 rounded-lg focus:outline-none hover:bg-gray-200 dark:hover:bg-neutral-700"
             >
               <option value="all">All Dates</option>
               <option value="thisMonth">This Month</option>
@@ -175,80 +159,72 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* --- Section 1: Upcoming (Open for applications) --- */}
-        <section className="mt-8">
-          <h2 className="text-2xl font-semibold mb-4">
-            Upcoming Competitions — Open
-          </h2>
-          <div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 overflow-y-auto rounded-lg border border-gray-200 dark:border-neutral-700 p-3"
-            style={{ maxHeight: "600px" }} // ✅ Adjustable scroll height
+        {/* 🔹 Scrollable Sections */}
+        {[
+          {
+            title: "Upcoming Competitions — Open",
+            data: filterByUser(upcomingActive),
+          },
+          {
+            title: "Upcoming Competitions — Deadline Passed",
+            data: filterByUser(upcomingClosed),
+          },
+          {
+            title: "Past Competitions",
+            data: filterByUser(past),
+          },
+        ].map(({ title, data }, idx) => (
+          <section
+            key={idx}
+            className="bg-gray-50 dark:bg-neutral-900/60 rounded-2xl shadow-sm border border-gray-200 dark:border-neutral-800 p-6"
           >
-            {filterByUser(upcomingActive).length > 0 ? (
-              filterByUser(upcomingActive).map((comp) => (
-                <CompetitionCard key={comp.id} comp={comp} />
-              ))
-            ) : (
-              <p className="text-gray-500 dark:text-gray-400">
-                No open competitions available.
-              </p>
-            )}
-          </div>
-        </section>
+            <h2 className="text-2xl font-semibold mb-4 bg-gradient-to-r from-blue-600 to-purple-500 bg-clip-text text-transparent">
+              {title}
+            </h2>
 
-        {/* --- Section 2: Upcoming (Deadline Passed) --- */}
-        <section className="mt-10">
-          <h2 className="text-2xl font-semibold mb-4">
-            Upcoming Competitions — Deadline Passed
-          </h2>
-          <div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 overflow-y-auto rounded-lg border border-gray-200 dark:border-neutral-700 p-3"
-            style={{ maxHeight: "600px" }}
-          >
-            {filterByUser(upcomingClosed).length > 0 ? (
-              filterByUser(upcomingClosed).map((comp) => (
-                <CompetitionCard key={comp.id} comp={comp} />
-              ))
-            ) : (
-              <p className="text-gray-500 dark:text-gray-400">
-                No closed upcoming competitions.
-              </p>
-            )}
-          </div>
-        </section>
+            <div
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 overflow-y-auto p-2 custom-scrollbar"
+              style={{ maxHeight: "550px" }}
+            >
+              {data.length > 0 ? (
+                data.map((comp) => <CompetitionCard key={comp.id} comp={comp} />)
+              ) : (
+                <p className="text-gray-500 dark:text-gray-400 italic">
+                  No competitions found.
+                </p>
+              )}
+            </div>
+          </section>
+        ))}
 
-        {/* --- Section 3: Past Competitions --- */}
-        <section className="mt-10">
-          <h2 className="text-2xl font-semibold mb-4">Past Competitions</h2>
-          <div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 overflow-y-auto rounded-lg border border-gray-200 dark:border-neutral-700 p-3"
-            style={{ maxHeight: "600px" }}
-          >
-            {filterByUser(past).length > 0 ? (
-              filterByUser(past).map((comp) => (
-                <CompetitionCard key={comp.id} comp={comp} />
-              ))
-            ) : (
-              <p className="text-gray-500 dark:text-gray-400">
-                No past competitions found.
-              </p>
-            )}
-          </div>
-        </section>
-
-        {/* --- Section 4: Map --- */}
+        {/* 🔹 Map Section */}
         <section
           id="map"
-          className="mt-12 relative z-10"
-          style={{ pointerEvents: "auto" }}
+          className="mt-12 relative z-10 bg-gray-50 dark:bg-neutral-900/60 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-neutral-800"
         >
-          <h2 className="text-2xl font-semibold mb-4">Competition Map</h2>
+          <h2 className="text-2xl font-semibold mb-4 bg-gradient-to-r from-green-600 to-teal-500 bg-clip-text text-transparent">
+            Competition Map
+          </h2>
           <MapView competitions={competitions} />
         </section>
-      </div>
-      <AdBanner />
+      </main>
 
+      <AdBanner />
       <Footer />
+
+      {/* Custom Scrollbar Styling */}
+      <style jsx global>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(100, 100, 100, 0.4);
+          border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: rgba(100, 100, 100, 0.7);
+        }
+      `}</style>
     </>
   );
 }
