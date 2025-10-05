@@ -64,14 +64,29 @@ export default function HomePage() {
   // ✅ Local storage lists
   const appliedList = JSON.parse(localStorage.getItem("appliedList") || "[]");
   const toApplyList = JSON.parse(localStorage.getItem("toApplyList") || "[]");
+  const [filter, setFilter] = useState("all");
 
   // ✅ Compute categories dynamically
-  const upcomingActive = competitions.filter(
-    (c) => parseDate(c.deadline) >= today && parseDate(c.date) >= today
-  );
-  const upcomingClosed = competitions.filter(
-    (c) => parseDate(c.deadline) < today && parseDate(c.date) >= today
-  );
+  const upcomingActive = competitions.filter((c) => {
+    const dateOk = parseDate(c.deadline) >= today && parseDate(c.date) >= today;
+    const matchesFilter =
+      filter === "all" ||
+      c.category === filter ||
+      c.mode === filter ||
+      c.region === filter;
+    return dateOk && matchesFilter;
+  });
+
+  const upcomingClosed = competitions.filter((c) => {
+    const dateOk = parseDate(c.deadline) < today && parseDate(c.date) >= today;
+    const matchesFilter =
+      filter === "all" ||
+      c.category === filter ||
+      c.mode === filter ||
+      c.region === filter;
+    return dateOk && matchesFilter;
+  });
+
   const past = competitions.filter((c) => parseDate(c.date) < today);
 
   // ✅ Filter by "My Competitions" toggle
@@ -87,14 +102,34 @@ export default function HomePage() {
       <Header />
       <div className="max-w-5xl mx-auto px-4 py-8">
         {/* --- Toggle Button --- */}
-        <div className="flex justify-between items-center mb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3">
           <h1 className="text-3xl font-semibold">Pitch Competitions</h1>
-          <button
-            onClick={() => setShowMyComps(!showMyComps)}
-            className="text-sm bg-gray-200 dark:bg-neutral-800 px-3 py-1 rounded-md hover:bg-gray-300 dark:hover:bg-neutral-700"
-          >
-            {showMyComps ? "Show All" : "Show My Competitions"}
-          </button>
+
+          <div className="flex flex-wrap items-center gap-3">
+            {/* --- Show My Competitions toggle --- */}
+            <button
+              onClick={() => setShowMyComps(!showMyComps)}
+              className="text-sm bg-gray-200 dark:bg-neutral-800 px-3 py-1 rounded-md hover:bg-gray-300 dark:hover:bg-neutral-700"
+            >
+              {showMyComps ? "Show All" : "Show My Competitions"}
+            </button>
+
+            {/* --- Simple Filter Dropdown --- */}
+            <select
+              onChange={(e) => setFilter(e.target.value)}
+              value={filter}
+              className="text-sm bg-gray-200 dark:bg-neutral-800 px-3 py-1 rounded-md hover:bg-gray-300 dark:hover:bg-neutral-700 focus:outline-none"
+            >
+              <option value="all">All</option>
+              <option value="High School">High School</option>
+              <option value="College">College</option>
+              <option value="Corporate">Corporate</option>
+              <option value="Open">Open</option>
+              <option value="Virtual">Virtual</option>
+              <option value="In Person">In Person</option>
+              <option value="Hybrid">Hybrid</option>
+            </select>
+          </div>
         </div>
 
         {/* --- Section 1: Upcoming (Open for applications) --- */}
