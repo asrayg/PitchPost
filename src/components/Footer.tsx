@@ -1,27 +1,44 @@
 "use client";
-
+import confetti from "canvas-confetti";
 import { useState } from "react";
 import { supabase } from "../utils/supabaseClient";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
-    "idle"
-  );
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
+
+  // ✅ Email regex validation
+  const isValidEmail = (email: string) =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email) return;
+    if (!isValidEmail(email)) {
+      setStatus("error");
+      return;
+    }
 
     setStatus("loading");
 
-    const { error } = await supabase.from("email_subscribers").insert([{ email }]);
+    const { error } = await supabase
+      .from("email_subscribers")
+      .insert([{ email }]);
+
     if (error) {
       console.error(error);
       setStatus("error");
     } else {
       setStatus("success");
       setEmail("");
+
+      // 🎉 Confetti pop on success
+      confetti({
+        particleCount: 120,
+        spread: 80,
+        origin: { y: 0.7 },
+      });
     }
   };
 
@@ -29,10 +46,10 @@ export default function Footer() {
     <footer className="mt-16 border-t border-gray-300 dark:border-neutral-800 bg-gray-50 dark:bg-neutral-900 py-10 px-6 text-center">
       <div className="max-w-4xl mx-auto space-y-6">
         <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
-          YOOOOOOO 🚀
+          🚀 Stay in the Loop
         </h3>
         <p className="text-gray-600 dark:text-gray-400 text-sm">
-          Get updates on new pitch competitions directly to your inbox.
+          Get updates on upcoming pitch competitions directly to your inbox.
         </p>
 
         <form
@@ -42,11 +59,19 @@ export default function Footer() {
           <input
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setStatus("idle");
+            }}
             placeholder="Enter your email"
             required
-            className="w-full sm:w-auto flex-1 px-4 py-2 border border-gray-300 dark:border-neutral-700 rounded-lg bg-white dark:bg-neutral-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={`w-full sm:w-auto flex-1 px-4 py-2 border rounded-lg bg-white dark:bg-neutral-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 ${
+              status === "error"
+                ? "border-red-500 focus:ring-red-500"
+                : "border-gray-300 dark:border-neutral-700 focus:ring-blue-500"
+            }`}
           />
+
           <button
             type="submit"
             disabled={status === "loading"}
@@ -60,8 +85,17 @@ export default function Footer() {
           </button>
         </form>
 
+        {status === "error" && (
+          <p className="text-red-500 text-sm">
+            Please enter a valid email address.
+          </p>
+        )}
+
         <div className="mt-6 text-sm text-gray-600 dark:text-gray-400">
-          <p>© 2025 PitchPost | Made by <span className="font-medium">Asray Gopa</span></p>
+          <p>
+            © 2025 PitchPost | Made by{" "}
+            <span className="font-medium">Asray Gopa</span>
+          </p>
           <p>
             Contact:{" "}
             <a
