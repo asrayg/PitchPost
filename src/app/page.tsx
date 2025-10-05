@@ -180,7 +180,10 @@ export default function HomePage() {
           <h2 className="text-2xl font-semibold mb-4">
             Upcoming Competitions — Open
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 overflow-y-auto rounded-lg border border-gray-200 dark:border-neutral-700 p-3"
+            style={{ maxHeight: "600px" }} // ✅ Adjustable scroll height
+          >
             {filterByUser(upcomingActive).length > 0 ? (
               filterByUser(upcomingActive).map((comp) => (
                 <CompetitionCard key={comp.id} comp={comp} />
@@ -198,7 +201,10 @@ export default function HomePage() {
           <h2 className="text-2xl font-semibold mb-4">
             Upcoming Competitions — Deadline Passed
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 overflow-y-auto rounded-lg border border-gray-200 dark:border-neutral-700 p-3"
+            style={{ maxHeight: "600px" }}
+          >
             {filterByUser(upcomingClosed).length > 0 ? (
               filterByUser(upcomingClosed).map((comp) => (
                 <CompetitionCard key={comp.id} comp={comp} />
@@ -214,7 +220,10 @@ export default function HomePage() {
         {/* --- Section 3: Past Competitions --- */}
         <section className="mt-10">
           <h2 className="text-2xl font-semibold mb-4">Past Competitions</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 overflow-y-auto rounded-lg border border-gray-200 dark:border-neutral-700 p-3"
+            style={{ maxHeight: "600px" }}
+          >
             {filterByUser(past).length > 0 ? (
               filterByUser(past).map((comp) => (
                 <CompetitionCard key={comp.id} comp={comp} />
@@ -228,7 +237,11 @@ export default function HomePage() {
         </section>
 
         {/* --- Section 4: Map --- */}
-        <section id="map" className="mt-12 relative z-10" style={{ pointerEvents: "auto" }}>
+        <section
+          id="map"
+          className="mt-12 relative z-10"
+          style={{ pointerEvents: "auto" }}
+        >
           <h2 className="text-2xl font-semibold mb-4">Competition Map</h2>
           <MapView competitions={competitions} />
         </section>
