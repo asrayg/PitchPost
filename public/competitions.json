@@ -1,0 +1,76 @@
+[
+  {
+    "id": 1,
+    "name": "Midwest Collegiate Pitch Off",
+    "category": "College",
+    "region": "Midwest",
+    "date": "2025-11-12",
+    "deadline": "2025-10-25",
+    "prize": "$10,000",
+    "location": "Chicago, IL",
+    "coordinates": [41.8781, -87.6298],
+    "link": "https://example.com/apply",
+    "status": "upcoming"
+  },
+    {
+    "id": 2,
+    "name": "Midwest Collegiate Pitch Off",
+    "category": "College",
+    "region": "Midwest",
+    "date": "2025-11-12",
+    "deadline": "2025-10-25",
+    "prize": "$10,000",
+    "location": "Chicago, IL",
+    "coordinates": [41.8781, -87.6298],
+    "link": "https://example.com/apply",
+    "status": "upcoming"
+  },  {
+    "id": 3,
+    "name": "Midwest Collegiate Pitch Off",
+    "category": "College",
+    "region": "Midwest",
+    "date": "2025-11-12",
+    "deadline": "2025-10-25",
+    "prize": "$10,000",
+    "location": "Chicago, IL",
+    "coordinates": [41.8781, -87.6298],
+    "link": "https://example.com/apply",
+    "status": "upcoming"
+  },  {
+    "id": 4,
+    "name": "Midwest Collegiate Pitch Off",
+    "category": "College",
+    "region": "Midwest",
+    "date": "2025-11-12",
+    "deadline": "2025-10-25",
+    "prize": "$10,000",
+    "location": "Chicago, IL",
+    "coordinates": [41.8781, -87.6298],
+    "link": "https://example.com/apply",
+    "status": "upcoming"
+  },  {
+    "id": 5,
+    "name": "Midwest Collegiate Pitch Off",
+    "category": "College",
+    "region": "Midwest",
+    "date": "2025-11-12",
+    "deadline": "2025-10-25",
+    "prize": "$10,000",
+    "location": "Chicago, IL",
+    "coordinates": [41.8781, -87.6298],
+    "link": "https://example.com/apply",
+    "status": "upcoming"
+  },  
+  {
+    "id": 6,
+    "name": "National Youth Startup Challenge",
+    "category": "High School",
+    "region": "National",
+    "date": "2025-03-18",
+    "deadline": "2025-02-25",
+    "prize": "$5,000",
+    "location": "Virtual",
+    "link": "https://example.com/apply",
+    "status": "past"
+  }
+]
