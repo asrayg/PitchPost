@@ -6,6 +6,7 @@ import CompetitionCard from "../components/CompetitionCard";
 import competitionsData from "../../public/competitions.json";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import AdBanner from "../components/AdBanner";
 
 // ✅ Dynamically import MapView client-side only
 const MapView = dynamic(() => import("../components/MapView"), {
@@ -75,25 +76,46 @@ export default function HomePage() {
     }
   }, []);
   const [filter, setFilter] = useState("all");
+  const [dateFilter, setDateFilter] = useState("all");
+
+  const filterByDate = (dateStr: string) => {
+    const date = parseDate(dateStr);
+    const now = new Date();
+    const month = now.getMonth();
+    const year = now.getFullYear();
+
+    switch (dateFilter) {
+      case "thisMonth":
+        return date.getMonth() === month && date.getFullYear() === year;
+      case "nextMonth":
+        return date.getMonth() === month + 1 && date.getFullYear() === year;
+      case "thisYear":
+        return date.getFullYear() === year;
+      default:
+        return true;
+    }
+  };
 
   // ✅ Compute categories dynamically
   const upcomingActive = competitions.filter((c) => {
     const dateOk = parseDate(c.deadline) >= today && parseDate(c.date) >= today;
     const matchesFilter =
-      filter === "all" ||
-      c.category === filter ||
-      c.mode === filter ||
-      c.region === filter;
+      (filter === "all" ||
+        c.category === filter ||
+        c.mode === filter ||
+        c.region === filter) &&
+      filterByDate(c.date); // ✅ this now applies to all filters
     return dateOk && matchesFilter;
   });
 
   const upcomingClosed = competitions.filter((c) => {
     const dateOk = parseDate(c.deadline) < today && parseDate(c.date) >= today;
     const matchesFilter =
-      filter === "all" ||
-      c.category === filter ||
-      c.mode === filter ||
-      c.region === filter;
+      (filter === "all" ||
+        c.category === filter ||
+        c.mode === filter ||
+        c.region === filter) &&
+      filterByDate(c.date); // ✅ same fix here
     return dateOk && matchesFilter;
   });
 
@@ -124,7 +146,7 @@ export default function HomePage() {
               {showMyComps ? "Show All" : "Show My Competitions"}
             </button>
 
-            {/* --- Simple Filter Dropdown --- */}
+            {/* --- Category / Mode Filter --- */}
             <select
               onChange={(e) => setFilter(e.target.value)}
               value={filter}
@@ -137,6 +159,18 @@ export default function HomePage() {
               <option value="Virtual">Virtual</option>
               <option value="In Person">In Person</option>
               <option value="Hybrid">Hybrid</option>
+            </select>
+
+            {/* --- Date Filter --- */}
+            <select
+              onChange={(e) => setDateFilter(e.target.value)}
+              value={dateFilter}
+              className="text-sm bg-gray-200 dark:bg-neutral-800 px-3 py-1 rounded-md hover:bg-gray-300 dark:hover:bg-neutral-700 focus:outline-none"
+            >
+              <option value="all">All Dates</option>
+              <option value="thisMonth">This Month</option>
+              <option value="nextMonth">Next Month</option>
+              <option value="thisYear">This Year</option>
             </select>
           </div>
         </div>
@@ -194,11 +228,13 @@ export default function HomePage() {
         </section>
 
         {/* --- Section 4: Map --- */}
-        <section id="map" className="mt-12  relative -z-10">
+        <section id="map" className="mt-12 relative z-10" style={{ pointerEvents: "auto" }}>
           <h2 className="text-2xl font-semibold mb-4">Competition Map</h2>
           <MapView competitions={competitions} />
         </section>
       </div>
+      <AdBanner />
+
       <Footer />
     </>
   );
