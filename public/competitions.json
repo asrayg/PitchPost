@@ -939,5 +939,161 @@
       "phone": "",
       "institution": "43North"
     }
+  },
+  {
+    "id": 4001,
+    "name": "Templeton Business Ethics Case Competition",
+    "category": "College",
+    "focus": "Business ethics case competition",
+    "region": "National",
+    "date": "2026-02-19",
+    "deadline": "TBD",
+    "prize": "Cash awards for top undergraduate teams (varies by year)",
+    "prizeDetails": [],
+    "location": "DeLand, FL",
+    "mode": "In Person",
+    "criteria": "Invited teams of undergraduate business students from universities; teams analyze and present solutions to a complex business ethics case.",
+    "timings": "Multi-day competition; 2026 dates are Feb 19–21, 2026.",
+    "link": "https://www.stetson.edu/business/templeton/",
+    "coordinates": [29.0283, -81.3031],
+    "status": "upcoming",
+    "organizer": {
+      "name": "Stetson University School of Business Administration",
+      "email": "",
+      "institution": "Stetson University"
+    }
+  },
+  {
+    "id": 4002,
+    "name": "Collegiate Inventors Competition",
+    "category": "College",
+    "focus": "Invention, research & commercialization",
+    "region": "National",
+    "date": "TBD",
+    "deadline": "TBD (2026 entry period to be announced in spring 2026)",
+    "prize": "Cash prizes + USPTO Patent Acceleration Certificates",
+    "prizeDetails": [
+      "Cash awards for undergraduate and graduate winners and finalists",
+      "Patent Acceleration Certificate for winning teams",
+      "Travel support for finalists to attend in-person finals"
+    ],
+    "location": "Alexandria, VA (USPTO HQ) & Washington, DC",
+    "mode": "In Person (finals) + online application",
+    "criteria": "Undergraduate and graduate students (individual or teams) at accredited colleges/universities with a patentable invention; judged on originality, usefulness, and commercialization potential.",
+    "timings": "Annual competition; entry period opens in spring, finalists announced in early fall, in-person finals typically held in October.",
+    "link": "https://www.invent.org/collegiate-inventors",
+    "coordinates": [38.8048, -77.0469],
+    "status": "upcoming",
+    "organizer": {
+      "name": "National Inventors Hall of Fame & U.S. Patent and Trademark Office",
+      "email": "",
+      "institution": "National Inventors Hall of Fame"
+    }
+  },
+  {
+    "id": 4003,
+    "name": "Student Entrepreneur National Competition (Enactus Canada)",
+    "category": "College",
+    "focus": "Student-run ventures",
+    "region": "Canada",
+    "date": "2026-05-06",
+    "deadline": "2026-01-04",
+    "prize": "$10,000 National Champion, $4,000 Runner-Up, $2,000 Second Runner-Up",
+    "prizeDetails": [
+      "$10,000 cash prize for National Champion",
+      "$4,000 for Runner-Up",
+      "$2,000 for Second Runner-Up",
+      "Travel and lodging covered for finalists at Enactus Canada National Exposition"
+    ],
+    "location": "Montréal, QC (Enactus Canada National Exposition 2026)",
+    "mode": "Hybrid (online nomination + in-person finals)",
+    "criteria": "Full-time Canadian post-secondary student who is the founder and at least 25% owner of an actively operating business, with no other party owning more equity; must be primary operator of the venture.",
+    "timings": "Nominations accepted in fall; for the 2025–26 cycle, nominations close Dec 5, 2025 and full applications are due Jan 4, 2026. Finalists pitch live at the Enactus Canada National Exposition May 6–8, 2026.",
+    "link": "https://enactus.ca",
+    "coordinates": [45.5017, -73.5673],
+    "status": "upcoming",
+    "organizer": {
+      "name": "Enactus Canada",
+      "email": "",
+      "institution": "Enactus Canada"
+    }
+  },
+  {
+    "id": 4004,
+    "name": "Hult Prize @ University of Toronto Campus Competition 2026",
+    "category": "College",
+    "focus": "Social impact startup pitch",
+    "region": "Canada",
+    "date": "2026-02-11",
+    "deadline": "2026-01-08",
+    "prize": "Campus winner advances in Hult Prize global competition; local prizes vary",
+    "prizeDetails": [
+      "Campus champion advances toward regional/global Hult Prize rounds",
+      "Local recognition, mentorship, and potential seed support"
+    ],
+    "location": "Toronto, ON",
+    "mode": "In Person",
+    "criteria": "Current University of Toronto students forming teams to pitch a venture addressing the annual Hult Prize social-impact challenge.",
+    "timings": "Applications for the 2026 campus round close Jan 8, 2026; campus pitch competition is scheduled for Feb 11, 2026.",
+    "link": "https://entrepreneurs.utoronto.ca",
+    "coordinates": [43.6629, -79.3957],
+    "status": "upcoming",
+    "organizer": {
+      "name": "University of Toronto Entrepreneurship (UTE) & Hult Prize @ UofT",
+      "email": "",
+      "institution": "University of Toronto"
+    }
+  },
+  {
+    "id": 4005,
+    "name": "UGA Venture Prize Competition",
+    "category": "College",
+    "focus": "New venture pitch",
+    "region": "South",
+    "date": "2026-02-19",
+    "deadline": "2026-01-30",
+    "prize": "$10,000 grand prize + additional awards (varies by year)",
+    "prizeDetails": [
+      "$10,000 grand prize",
+      "Additional category and finalist awards (amounts vary annually)"
+    ],
+    "location": "Athens, GA",
+    "mode": "In Person",
+    "criteria": "Undergraduate students at the University of Georgia pitching innovative business ideas; individual or team entries, subject to UGA Entrepreneurship Program eligibility rules.",
+    "timings": "For the 2026 competition, applications are due Jan 30, 2026; finalists pitch live on Feb 19, 2026.",
+    "link": "https://www.terry.uga.edu/entrepreneurship",
+    "coordinates": [33.9519, -83.3576],
+    "status": "upcoming",
+    "organizer": {
+      "name": "UGA Entrepreneurship Program",
+      "email": "",
+      "institution": "University of Georgia"
+    }
+  },
+  {
+    "id": 4006,
+    "name": "VentureWell E-Team Program – Spring 2026 Cohort",
+    "category": "College",
+    "focus": "STEM innovation & commercialization",
+    "region": "National",
+    "date": "2026-03-31",
+    "deadline": "2026-01-27",
+    "prize": "Up to $25,000 in non-dilutive grants + training & mentorship",
+    "prizeDetails": [
+      "Stage 1: up to $5,000 grant + Pioneer workshop",
+      "Stage 2 (by invitation): up to $20,000 additional grant + Propel workshop"
+    ],
+    "location": "Hybrid (virtual workshops; in-person elements vary in the U.S.)",
+    "mode": "Hybrid",
+    "criteria": "Student-led teams from U.S.-based colleges/universities developing science- and engineering-based innovations with positive social or environmental impact; must include at least two founders and a faculty advisor.",
+    "timings": "Spring 2026 cohort: applications open Nov 10, 2025; Stage 1 applications are due Jan 27, 2026; Stage 1 award notifications are scheduled for March 31, 2026, followed by workshops and optional Stage 2.",
+    "link": "https://venturewell.org/e-team-program/",
+    "coordinates": [42.3736, -72.5199],
+    "status": "upcoming",
+    "organizer": {
+      "name": "VentureWell",
+      "email": "",
+      "institution": "VentureWell"
+    }
   }
 ]
