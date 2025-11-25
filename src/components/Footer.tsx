@@ -116,7 +116,7 @@ export default function Footer() {
           className="flex justify-center mt-8"
           dangerouslySetInnerHTML={{
             __html:
-              '<a href="https://www.buymeacoffee.com/asraygopa4" target="_blank" rel="noopener noreferrer"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;border-radius: 8px;transition: transform 0.2s ease;" /></a>',
+              '<a href="https://account.venmo.com/u/asray-gopa" target="_blank" rel="noopener noreferrer"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;border-radius: 8px;transition: transform 0.2s ease;" /></a>',
           }}
         />
       </div>
