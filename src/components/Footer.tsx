@@ -112,13 +112,22 @@ export default function Footer() {
         </div>
 
         {/* ✅ Buy Me a Coffee Button */}
-        <div
-          className="flex justify-center mt-8"
-          dangerouslySetInnerHTML={{
-            __html:
-              '<a href="https://account.venmo.com/u/asray-gopa" target="_blank" rel="noopener noreferrer"><img src="https://account.venmo.com/u/asray-gopa" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;border-radius: 8px;transition: transform 0.2s ease;" /></a>',
-          }}
-        />
+        <div className="flex justify-center mt-8">
+          <a
+            href="https://account.venmo.com/u/asray-gopa"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="
+              mt-2 bg-[#FFDD00] px-6 py-3 rounded-xl 
+              border-4 border-black text-black font-bold 
+              text-lg tracking-widest font-mono
+              transition-transform duration-200 hover:scale-105
+            "
+          >
+            ☕ Buy Me A Coffee
+          </a>
+        </div>
+        
       </div>
     </footer>
   );
